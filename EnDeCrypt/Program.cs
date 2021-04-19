@@ -1,7 +1,6 @@
 ﻿using System;
-using System.Runtime.InteropServices;
-using System.Security;
 using System.Text;
+using EnDeCrypt.Models;
 using EnDeCrypt.Services;
 
 namespace EnDeCrypt
@@ -10,14 +9,15 @@ namespace EnDeCrypt
     {
         public static void Main()
         {
-            var userData = new Models.UserData();
-            SetUserInput(userData);
+            var userData = new UserData();
+            SelectToEncryptOrDecrypt(userData);
             EncryptOrDecryptData(userData);
         }
 
-        private static void SetUserInput(Models.UserData userData)
+        private static void SelectToEncryptOrDecrypt(UserData userData)
         {
-            Console.Write("Do you want to Encrypt or Decrypt? 1: Encrypt 2: Decrypt: ");
+            Console.WriteLine("Do you want to Encrypt or Decrypt?");
+            Console.Write("1: Encrypt 2: Decrypt: ");
             var input = Console.ReadLine();
 
             userData.Input = input switch
@@ -33,7 +33,7 @@ namespace EnDeCrypt
             Environment.Exit(0);
         }
 
-        private static void EncryptOrDecryptData(Models.UserData userData)
+        private static void EncryptOrDecryptData(UserData userData)
         {
             switch (userData.Input)
             {
@@ -64,13 +64,13 @@ namespace EnDeCrypt
                     Console.WriteLine("You have chosen to Decrypt Data.");
 
                     Console.Write("Enter your 32 character Key: ");
-                    userData.Key = SetUserData();
+                    userData.Key = SetUserDataService.SetUserData();
                     Console.WriteLine();
 
                     CheckKey(userData);
 
                     Console.Write("Enter your 16 character initialization vector (IV): ");
-                    userData.Iv = SetUserData();
+                    userData.Iv = SetUserDataService.SetUserData();
                     Console.WriteLine();
 
                     CheckIv(userData);
@@ -86,8 +86,8 @@ namespace EnDeCrypt
                 }
             }
         }
-        
-        private static void CheckKey(Models.UserData userData)
+
+        private static void CheckKey(UserData userData)
         {
             if (userData.Key.Length == 32) return;
             Console.WriteLine("32 characters not entered. Press Enter to exit application.");
@@ -95,38 +95,12 @@ namespace EnDeCrypt
             Environment.Exit(0);
         }
 
-        private static void CheckIv(Models.UserData userData)
+        private static void CheckIv(UserData userData)
         {
             if (userData.Iv.Length == 16) return;
             Console.WriteLine("16 characters not entered. Press Enter to exit application.");
             Console.ReadLine();
             Environment.Exit(0);
-        }
-
-        private static byte[] SetUserData()
-        {
-            using var securePwd = new SecureString();
-            ConsoleKeyInfo key;
-
-            Console.Write("Enter Key: ");
-            do
-            {
-                key = Console.ReadKey(true);
-
-                if (key.KeyChar == 8)
-                {
-                    securePwd.RemoveAt(securePwd.Length - 1);
-                    Console.Write("\b \b");
-                }
-
-                if ((int) key.Key < 33 || (int) key.Key > 127) continue;
-                securePwd.AppendChar(key.KeyChar);
-                Console.Write("*");
-            } while (key.Key != ConsoleKey.Enter);
-
-            var ud1 = Marshal.SecureStringToGlobalAllocUnicode(securePwd);
-            var ud2 = Marshal.PtrToStringUni(ud1);
-            return Encoding.ASCII.GetBytes(ud2 ?? string.Empty);
         }
     }
 }
