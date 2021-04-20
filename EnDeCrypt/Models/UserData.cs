@@ -7,5 +7,6 @@
         public byte[] Iv { get; set; }
         public string DataToEncrypt { get; set; }
         public string DataToDecrypt { get; set; }
+        public string ErrorMessage { get; set; }
     }
 }
