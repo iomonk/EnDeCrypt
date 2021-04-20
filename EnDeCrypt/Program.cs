@@ -10,11 +10,11 @@ namespace EnDeCrypt
         public static void Main()
         {
             var userData = new UserData();
-            SelectToEncryptOrDecrypt(userData);
+            EncryptDecryptSelection(userData);
             EncryptOrDecryptData(userData);
         }
 
-        private static void SelectToEncryptOrDecrypt(UserData userData)
+        private static void EncryptDecryptSelection(UserData userData)
         {
             Console.WriteLine("Do you want to Encrypt or Decrypt?");
             Console.WriteLine("Encrypt: 1");
@@ -22,12 +22,19 @@ namespace EnDeCrypt
             
             var input = Console.ReadLine();
 
-            userData.Input = input switch
+            switch (input)
             {
-                "1" => "enc",
-                "2" => "dec",
-                _ => "bad"
-            };
+                case "1":
+                    userData.Input = "enc";
+                    break;
+                case "2":
+                    userData.Input = "dec";
+                    break;
+                default:
+                    userData.Input = "bad";
+                    userData.ErrorMessage = "1 or 2 was not entered.";
+                    break;
+            }
         }
 
         private static void EncryptOrDecryptData(UserData userData)
@@ -44,7 +51,7 @@ namespace EnDeCrypt
                     CheckEnteredKeyAndIv(userData);
                     Console.WriteLine("Enter the data you want to encrypt.");
                     userData.DataToEncrypt = Console.ReadLine();
-                    var enc = EncryptDecryptService.EncryptStringToBytes(userData.DataToEncrypt, userData.Key, userData.Iv);
+                    var enc = EncryptService.EncryptStringToBytes(userData.DataToEncrypt, userData.Key, userData.Iv);
                     Console.WriteLine("Your encrypted string is: ");
                     Console.WriteLine(Convert.ToBase64String(enc));
                     break;
@@ -61,14 +68,12 @@ namespace EnDeCrypt
                     CheckEnteredKeyAndIv(userData);
                     Console.Write("Enter the data you want to decrypt: ");
                     userData.DataToDecrypt = Console.ReadLine();
-                    var dataToDecrypt = Convert.FromBase64String(userData.DataToDecrypt ?? string.Empty);
-                    var dec = EncryptDecryptService.DecryptStringFromBytes(dataToDecrypt, userData.Key, userData.Iv);
+                    var dec = DecryptService.DecryptStringFromBytes(Convert.FromBase64String(userData.DataToDecrypt ?? string.Empty), userData.Key, userData.Iv);
                     Console.WriteLine("Your decrypted info is: ");
                     Console.WriteLine(dec);
                     break;
                 }
                 default:
-                    userData.ErrorMessage = "1 or 2 was not entered.";
                     ExitApp(userData);
                     break;
             }
