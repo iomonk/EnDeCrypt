@@ -1,2 +1,2 @@
 # EnDeCrypt
-An encryption and decryption utility. It accepts a 32 character key, a 16 character IV and some input. It will encrypt or decrypt the input.
+A simple tool that encrypts and decrypts data using a desired 32 character key and 16 character IV. This version offers a UI, an update from the older command line version.
