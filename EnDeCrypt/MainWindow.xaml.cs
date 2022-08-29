@@ -71,5 +71,6 @@ public partial class MainWindow : Window
     {
         InputLabel.Content = DataToDecryptLabel;
         InputBox.IsEnabled = true;
+        InputBox.Background = new SolidColorBrush(Color.FromRgb(255, 255, 255));
     }
 }
