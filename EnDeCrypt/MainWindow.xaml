@@ -4,17 +4,16 @@
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         mc:Ignorable="d"
-        Title="MainWindow" Height="550" Width="625">
+        Title="MainWindow" Height="490" Width="625">
     <Grid Background="WhiteSmoke">
         <Label Content="32 Char Key" HorizontalAlignment="Left" Margin="10,10,0,0" VerticalAlignment="Top" FontSize="18"/>
-        <PasswordBox x:Name="KeyPassBox" HorizontalAlignment="Left" Margin="125,16,0,0" VerticalAlignment="Top" Height="25" Width="333" FontSize="17"/>
+        <PasswordBox Name="KeyPassBox" HorizontalAlignment="Left" Margin="125,16,0,0" VerticalAlignment="Top" Height="25" Width="333" FontSize="17"/>
         <Label Content="16 Char IV" HorizontalAlignment="Left" Margin="10,50,0,0" VerticalAlignment="Top" FontSize="18"/>
-        <PasswordBox x:Name="IvPassBox" HorizontalAlignment="Left" Margin="125,56,0,0" VerticalAlignment="Top" Height="25" Width="170" FontSize="17"/>
-        <Label Content="Input" HorizontalAlignment="Left" Margin="10,94,0,0" VerticalAlignment="Top" FontSize="18"/>
-        <TextBox x:Name="InputBox" AcceptsReturn="True" VerticalScrollBarVisibility="Auto" HorizontalAlignment="Left" Margin="85,100,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="505" Height="160"/>
-        <Label Content="Output" HorizontalAlignment="Left" Margin="10,274,0,0" VerticalAlignment="Top" FontSize="18"/>
-        <TextBox x:Name="OutputBox" AcceptsReturn="True" VerticalScrollBarVisibility="Auto" HorizontalAlignment="Left" Margin="85,280,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="505" Height="160"/>
-        <Button Click="EncryptBtn" Content="Encrypt" HorizontalAlignment="Left" Margin="85,460,0,0" VerticalAlignment="Top" Width="150" Height="30" FontSize="14"/>
-        <Button Click="DecryptBtn" Content="Decrypt" HorizontalAlignment="Left" Margin="265,460,0,10" VerticalAlignment="Top" Width="150" Height="30" FontSize="14"/>
+        <PasswordBox Name="IvPassBox" HorizontalAlignment="Left" Margin="125,56,0,0" VerticalAlignment="Top" Height="25" Width="170" FontSize="17"/>
+        <RadioButton Checked="EncryptRbChecked" Name="EncryptRb"  Content="Encrypt" HorizontalAlignment="Left" Margin="85,100,0,0" VerticalAlignment="Top" FontSize="15"/>
+        <RadioButton Checked="DecryptRbChecked" Name="DecryptRb" Content="Decrypt" HorizontalAlignment="Left" Margin="160,100,0,0" VerticalAlignment="Top" FontSize="15"/>
+        <Label Name="InputLabel" Content="Your data" HorizontalAlignment="Left" Margin="80,123,0,0" VerticalAlignment="Top" FontSize="15"/>
+        <TextBox Name="InputBox" AcceptsReturn="True" VerticalScrollBarVisibility="Auto" HorizontalAlignment="Left" Margin="85,160,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="505" Height="225" IsEnabled="False" Background="lightGray"/>
+        <Button Click="GoBtn" Content="Go" HorizontalAlignment="Left" Margin="85,402,0,0" VerticalAlignment="Top" Width="505" Height="30" FontSize="14"/>
     </Grid>
 </Window>
