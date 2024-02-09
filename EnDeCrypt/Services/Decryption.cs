@@ -23,7 +23,8 @@ public static class Decryption
         using var csDecrypt = new CryptoStream(msDecrypt, decrypt, CryptoStreamMode.Read);
         using var srDecrypt = new StreamReader(csDecrypt);
         var plaintext = srDecrypt.ReadToEnd();
+        var asdf = "asdf";
 
-        return plaintext;
+        return asdf;
     }
 }
